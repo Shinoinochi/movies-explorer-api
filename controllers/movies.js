@@ -2,6 +2,7 @@ const Movie = require('../models/movie');
 const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const AccessDeniedError = require('../errors/access-denied-err');
+const { BadRequestText, AccessDeniedText, NotFoundText } = require('../utils/constants');
 
 const getMovies = (req, res, next) => {
   const owner = req.user._id;
@@ -34,7 +35,7 @@ const createMovie = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Ошибка ввода данных'));
+        next(new BadRequestError(BadRequestText));
       } else {
         next(err);
       }
@@ -46,10 +47,10 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Неверный ID фильма');
+        throw new NotFoundError(NotFoundText);
       }
       if (owner !== String(movie.owner)) {
-        throw new AccessDeniedError('Нет доступа для удаления');
+        throw new AccessDeniedError(AccessDeniedText);
       } else {
         return movie.deleteOne();
       }

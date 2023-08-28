@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const AuthError = require('../errors/auth-err');
+const { AuthText } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const handleAuthError = () => {
-  throw new AuthError('Необходима авторизация');
+  throw new AuthError(AuthText);
 };
 
 const extractBearerToken = (header) => header.replace('Bearer ', '');

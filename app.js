@@ -10,7 +10,7 @@ const handleErrors = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { dbUrl } = require('./utils/config');
-const limiter = require('./utils/config');
+const limiter = require('./utils/limiterConfig');
 
 const limit = rateLimit(limiter);
 
