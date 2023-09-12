@@ -21,7 +21,7 @@ const { PORT = 3000, BD_URL = dbUrl } = process.env;
 mongoose.connect(BD_URL, {
   useNewUrlParser: true,
 });
-app.use(cors({ origin: ['http://localhost:3001', 'http://shinoinochi.movies.nomoredomainsicu.ru', 'https://shinoinochi.movies.nomoredomainsicu.ru'] }));
+app.use(cors());
 app.use(requestLogger);
 app.use(limit);
 app.use(helmet());
